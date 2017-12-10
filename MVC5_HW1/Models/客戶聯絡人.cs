@@ -11,15 +11,27 @@ namespace MVC5_HW1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class 客戶聯絡人
     {
         public int Id { get; set; }
+
         public int 客戶Id { get; set; }
+
+        [Required(ErrorMessage = "請輸入職稱")]
         public string 職稱 { get; set; }
+
+        [Required(ErrorMessage = "請輸入姓名")]
         public string 姓名 { get; set; }
+
+        [Required(ErrorMessage = "請輸入Email")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "請輸入手機")]
         public string 手機 { get; set; }
+
+        [Required(ErrorMessage = "請輸入電話")]
         public string 電話 { get; set; }
     
         public virtual 客戶資料 客戶資料 { get; set; }
