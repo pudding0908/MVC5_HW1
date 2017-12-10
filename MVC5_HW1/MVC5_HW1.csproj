@@ -168,9 +168,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CustomerBankController.cs" />
+    <Compile Include="Controllers\CustomerContactController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NewCustomerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,7 +193,6 @@
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>CustomerData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModel\NewCustomerData.cs" />
     <Compile Include="Models\客戶聯絡人.cs">
       <DependentUpon>CustomerData.tt</DependentUpon>
     </Compile>
@@ -270,7 +270,16 @@
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\NewCustomer\Index.cshtml" />
+    <Content Include="Views\CustomerContact\Create.cshtml" />
+    <Content Include="Views\CustomerContact\Delete.cshtml" />
+    <Content Include="Views\CustomerContact\Details.cshtml" />
+    <Content Include="Views\CustomerContact\Edit.cshtml" />
+    <Content Include="Views\CustomerContact\Index.cshtml" />
+    <Content Include="Views\CustomerBank\Create.cshtml" />
+    <Content Include="Views\CustomerBank\Delete.cshtml" />
+    <Content Include="Views\CustomerBank\Details.cshtml" />
+    <Content Include="Views\CustomerBank\Edit.cshtml" />
+    <Content Include="Views\CustomerBank\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
