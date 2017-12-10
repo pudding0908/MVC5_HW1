@@ -15,9 +15,16 @@ namespace MVC5_HW1.Controllers
         private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: Customer
-        public ActionResult Index()
+        public ActionResult Index(string keyword = "")
         {
-            return View(db.客戶資料.ToList());
+            //關鍵字搜尋條件
+            var query = db.客戶資料.AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = query.Where(m => m.客戶名稱.Contains(keyword));
+            }
+            return View(query.ToList());  //回傳搜尋結果
         }
 
         // GET: Customer/Details/5
