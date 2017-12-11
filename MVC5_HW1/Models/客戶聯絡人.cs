@@ -19,21 +19,26 @@ namespace MVC5_HW1.Models
 
         public int 客戶Id { get; set; }
 
+        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         [Required(ErrorMessage = "請輸入職稱")]
         public string 職稱 { get; set; }
 
+        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         [Required(ErrorMessage = "請輸入姓名")]
         public string 姓名 { get; set; }
 
+        [EmailAddress]
         [Required(ErrorMessage = "請輸入Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "請輸入手機")]
+        [RegularExpression(@"09[0-9]{2}-[0-9]{6}", ErrorMessage = "請輸入正確的手機號碼! 09XX-XXXXXX")]
+        [Required(ErrorMessage = "請輸入手機號碼")]
         public string 手機 { get; set; }
 
-        [Required(ErrorMessage = "請輸入電話")]
+        [RegularExpression(@"[0-9]{4}-[0-9]{4}", ErrorMessage = "請輸入正確的電話號碼! XXXX-XXXX。")]
+        [Required(ErrorMessage = "請輸入電話號碼")]
         public string 電話 { get; set; }
-    
+
         public virtual 客戶資料 客戶資料 { get; set; }
     }
 }
