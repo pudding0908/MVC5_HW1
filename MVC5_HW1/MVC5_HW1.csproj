@@ -196,6 +196,9 @@
     <Compile Include="Models\客戶聯絡人.cs">
       <DependentUpon>CustomerData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\客戶聯絡人與銀行帳戶數量.cs">
+      <DependentUpon>CustomerData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\客戶資料.cs">
       <DependentUpon>CustomerData.tt</DependentUpon>
     </Compile>

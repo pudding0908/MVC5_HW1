@@ -33,7 +33,10 @@ namespace MVC5_HW1.Models
 
         [Required(ErrorMessage = "請輸入帳戶號碼")]
         public string 帳戶號碼 { get; set; }
-    
+
+        //是否刪除
+        public Nullable<bool> IsDelete { get; set; }
+
         public virtual 客戶資料 客戶資料 { get; set; }
     }
 }

@@ -28,16 +28,15 @@ namespace MVC5_HW1.Models
         [Required(ErrorMessage = "請輸入客戶名稱")]
         public string 客戶名稱 { get; set; }
 
-        //[StringLength(8, MinimumLength = 8, ErrorMessage = "統一編號不得超過8碼")]
         [RegularExpression(@"[0-9]{8}", ErrorMessage = "請輸入正確的統一編號!")]
         [Required(ErrorMessage = "請輸入統一編號")]
         public string 統一編號 { get; set; }
 
-        [RegularExpression(@"[0-9]{4}-[0-9]{4}", ErrorMessage = "請輸入正確的電話號碼! XXXX-XXXX。")]
+        [RegularExpression(@"^\d{6,8}$", ErrorMessage = "請輸入正確的電話號碼")]
         [Required(ErrorMessage = "請輸入電話")]
         public string 電話 { get; set; }
 
-        [RegularExpression(@"[0-9]{4}-[0-9]{4}", ErrorMessage = "請輸入正確的電話號碼! XXXX-XXXX。")]
+        [RegularExpression(@"^\d{6,8}$", ErrorMessage = "請輸入正確的電話號碼")]
         [Required(ErrorMessage = "請輸入傳真")]
         public string 傳真 { get; set; }
 
@@ -47,6 +46,9 @@ namespace MVC5_HW1.Models
         [EmailAddress]
         [Required(ErrorMessage = "請輸入Email")]
         public string Email { get; set; }
+
+        //是否刪除
+        public Nullable<bool> IsDelete { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<客戶銀行資訊> 客戶銀行資訊 { get; set; }

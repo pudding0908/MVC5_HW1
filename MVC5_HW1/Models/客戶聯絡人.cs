@@ -35,9 +35,12 @@ namespace MVC5_HW1.Models
         [Required(ErrorMessage = "請輸入手機號碼")]
         public string 手機 { get; set; }
 
-        [RegularExpression(@"[0-9]{4}-[0-9]{4}", ErrorMessage = "請輸入正確的電話號碼! XXXX-XXXX。")]
+        [RegularExpression(@"^\d{6,8}$", ErrorMessage = "請輸入正確的電話號碼")]
         [Required(ErrorMessage = "請輸入電話號碼")]
         public string 電話 { get; set; }
+
+        //是否刪除
+        public Nullable<bool> IsDelete { get; set; }
 
         public virtual 客戶資料 客戶資料 { get; set; }
     }
