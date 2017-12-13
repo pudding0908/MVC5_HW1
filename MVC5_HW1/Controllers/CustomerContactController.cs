@@ -15,10 +15,16 @@ namespace MVC5_HW1.Controllers
         private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: CustomerContact
-        public ActionResult Index()
+        public ActionResult Index(string keyword)
         {
-            var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
-            return View(客戶聯絡人.ToList());
+            var query = db.客戶聯絡人.Include(m => m.客戶資料);
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(m => m.姓名.Contains(keyword));
+
+            }
+            return View(query.ToList());
         }
 
         // GET: CustomerContact/Details/5
