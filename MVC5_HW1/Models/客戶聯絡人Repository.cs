@@ -6,7 +6,7 @@ namespace MVC5_HW1.Models
 {   
 	public  class 客戶聯絡人Repository : EFRepository<客戶聯絡人>, I客戶聯絡人Repository
 	{
-        internal 客戶聯絡人 Find(int? id)
+        public 客戶聯絡人 Find(int? id)
         {
             return All().FirstOrDefault(a => a.Id == id);
         }
