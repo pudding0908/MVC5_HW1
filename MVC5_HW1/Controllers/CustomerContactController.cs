@@ -13,7 +13,7 @@ namespace MVC5_HW1.Controllers
     public class CustomerContactController : Controller
     {
         客戶聯絡人Repository repo = RepositoryHelper.Get客戶聯絡人Repository();
-        客戶資料Repository repo2 = RepositoryHelper.Get客戶資料Repository();
+        private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: CustomerContact
         public ActionResult Index(string keyword)
@@ -46,9 +46,8 @@ namespace MVC5_HW1.Controllers
         // GET: CustomerContact/Create
         public ActionResult Create()
         {
-            //ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
             客戶聯絡人 客戶聯絡人 = new 客戶聯絡人();
-            InitDropDownList(客戶聯絡人);
+            InitDropDownList();
             return View();
         }
 
@@ -66,8 +65,7 @@ namespace MVC5_HW1.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
-            InitDropDownList(客戶聯絡人);
+            InitDropDownList();
             return View(客戶聯絡人);
         }
 
@@ -83,8 +81,7 @@ namespace MVC5_HW1.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
-            InitDropDownList(客戶聯絡人);
+            InitDropDownList();
             return View(客戶聯絡人);
         }
 
@@ -101,8 +98,7 @@ namespace MVC5_HW1.Controllers
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
-            //ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
-            InitDropDownList(客戶聯絡人);
+            InitDropDownList();
             return View(客戶聯絡人);
         }
 
@@ -132,14 +128,9 @@ namespace MVC5_HW1.Controllers
             return RedirectToAction("Index");
         }
     
-        private void InitDropDownList(客戶聯絡人 客戶聯絡人)
+        private void InitDropDownList()
         {
-            List<SelectListItem> data = new List<SelectListItem>();
-            foreach (客戶資料 m in repo2.All())
-            {
-                data.Add(new SelectListItem { Text = m.客戶名稱, Value = m.Id.ToString() });
-            }
-            //客戶聯絡人.客戶清單 = data;
+            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
         }
     }
 }
