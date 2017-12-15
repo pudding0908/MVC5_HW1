@@ -41,9 +41,11 @@ namespace MVC5_HW1.Models
 		{
 			ObjectSet.Remove(entity);
 		}
+
         public virtual void Update(T entity)
         {
             UnitOfWork.Context.Entry(entity).State = EntityState.Modified;
         }
     }
+
 }

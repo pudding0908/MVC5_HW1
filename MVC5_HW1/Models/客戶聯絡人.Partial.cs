@@ -6,9 +6,7 @@ namespace MVC5_HW1.Models
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// 加入模型驗證IValidatableObject
-    /// </summary>
+ 
     [MetadataType(typeof(客戶聯絡人MetaData))]
     public partial class 客戶聯絡人 : IValidatableObject
     {

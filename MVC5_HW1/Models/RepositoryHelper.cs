@@ -7,16 +7,16 @@ namespace MVC5_HW1.Models
 			return new EFUnitOfWork();
 		}		
 		
-		public static sysdiagramsRepository GetsysdiagramsRepository()
+		public static VW客戶關聯資料統計表Repository GetVW客戶關聯資料統計表Repository()
 		{
-			var repository = new sysdiagramsRepository();
+			var repository = new VW客戶關聯資料統計表Repository();
 			repository.UnitOfWork = GetUnitOfWork();
 			return repository;
 		}
 
-		public static sysdiagramsRepository GetsysdiagramsRepository(IUnitOfWork unitOfWork)
+		public static VW客戶關聯資料統計表Repository GetVW客戶關聯資料統計表Repository(IUnitOfWork unitOfWork)
 		{
-			var repository = new sysdiagramsRepository();
+			var repository = new VW客戶關聯資料統計表Repository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		

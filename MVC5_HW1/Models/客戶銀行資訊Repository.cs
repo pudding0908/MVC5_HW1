@@ -13,11 +13,16 @@ namespace MVC5_HW1.Models
 
         public 客戶銀行資訊 Find(int? id)
          {
-             return All().FirstOrDefault(a => a.Id == id);
+             return this.All().FirstOrDefault(a => a.Id == id);
          }
-}
 
-	public  interface I客戶銀行資訊Repository : IRepository<客戶銀行資訊>
+        //public override void Delete(客戶銀行資訊 entity)
+        //{
+        //    entity.IsDelete = true;
+        //}
+    }
+
+    public  interface I客戶銀行資訊Repository : IRepository<客戶銀行資訊>
 	{
 
 	}

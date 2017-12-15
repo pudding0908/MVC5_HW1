@@ -12,12 +12,18 @@ namespace MVC5_HW1.Controllers
 {
     public class CustomerController : Controller
     {
-        private 客戶資料Entities db = new 客戶資料Entities();
+        //private 客戶資料Entities db = new 客戶資料Entities();
         客戶資料Repository repo = RepositoryHelper.Get客戶資料Repository();
+        VW客戶關聯資料統計表Repository repoVW客戶關聯資料統計表;
+
+        public CustomerController()
+        {
+            repoVW客戶關聯資料統計表 = RepositoryHelper.GetVW客戶關聯資料統計表Repository(repo.UnitOfWork);
+        }
 
         public ActionResult 客戶關聯資料表()
         {
-            return View(db.VW客戶關聯資料統計表.ToList());
+            return View(repoVW客戶關聯資料統計表.All().ToList());
         }
 
         // GET: Customer
@@ -30,6 +36,8 @@ namespace MVC5_HW1.Controllers
             {
                 query = query.Where(m => m.客戶名稱.Contains(keyword));
             }
+
+            VipViewBag();
             return View(query.ToList());  //回傳搜尋結果
         }
 
@@ -40,7 +48,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶資料 客戶資料 = repo.Find(id);
+            客戶資料 客戶資料 = repo.Find(id.Value);
             if (客戶資料 == null)
             {
                 return HttpNotFound();
@@ -60,7 +68,7 @@ namespace MVC5_HW1.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email")] 客戶資料 客戶資料)
+        public ActionResult Create([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email,客戶分類")] 客戶資料 客戶資料)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +90,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶資料 客戶資料 = repo.Find(id);
+            客戶資料 客戶資料 = repo.Find(id.Value);
             if (客戶資料 == null)
             {
                 return HttpNotFound();
@@ -96,7 +104,7 @@ namespace MVC5_HW1.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email")] 客戶資料 客戶資料)
+        public ActionResult Edit([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email,客戶分類")] 客戶資料 客戶資料)
         {
             if (ModelState.IsValid)
             {
@@ -104,6 +112,7 @@ namespace MVC5_HW1.Controllers
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
+            VipViewBag();
             return View(客戶資料);
         }
 
@@ -114,7 +123,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶資料 客戶資料 = repo.Find(id);
+            客戶資料 客戶資料 = repo.Find(id.Value);
             if (客戶資料 == null)
             {
                 return HttpNotFound();

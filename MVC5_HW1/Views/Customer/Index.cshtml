@@ -7,19 +7,29 @@
 <h2>客戶資料</h2>
 
 <p>
-    @* 新增一筆資料 *@
     @Html.ActionLink("Create New","Create") |
     @Html.ActionLink("Back to Full List", "Index", "Customer")
 </p>
-<p>
-    @* 搜尋關鍵字的搜尋框與按鈕 *@
-    @using (Html.BeginForm())
-    {
-        @Html.Label("keyword", "關鍵字： ")
-        @Html.TextBox("keyword", null, new { @placeholder = "客戶名稱" })
-        <input type="submit" value="搜尋">
-    }
-</p>
+   @using (Html.BeginForm("Index", "Customer", FormMethod.Post, new { id = "queryForm", @class = "form-horizontal" }))
+   {
+    <div class="form-group">
+        <div class="col-sm-10 form-inline">
+            <div class="form-group col-sm-5">
+                <label class="col-sm-3 control-label">@Html.Label("keyword", "關鍵字:")</label>
+                <div class="col-sm-9">
+                    @Html.TextBox("keyword", null, new { @class = "form-control", @placeholder = "keyword(客戶名稱)" })
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="查詢條件_分類" class="col-sm-3 control-label">客戶分類:</label>
+                @Html.DropDownList("type", (IEnumerable<SelectListItem>)ViewBag.CustomerType, "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button id="btnQuery" type="submit" class="btn btn-primary">搜尋</button>
+        </div>
+    </div>
+   }
 
 <table class="table">
     <tr>
@@ -40,6 +50,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.客戶分類)
         </th>
         <th></th>
     </tr>
@@ -66,6 +79,9 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.客戶分類)
+            </td>
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you SURE?');" })
@@ -74,3 +90,22 @@
     }
 
 </table>
+
+@section scripts{
+    <script>
+        $(function () {
+            var reloadTable = function () {
+                var api = tblResult.api()
+
+                api.ajax.url('@Url.Action("Index")?' + $('#queryForm').serialize());
+                api.ajax.reload();
+            }
+
+            $("#btnQuery").click(function () {
+                $("#queryForm").submit();
+
+            });
+            $("#type").change(reloadTable);
+        });
+    </script>
+}

@@ -13,18 +13,20 @@ namespace MVC5_HW1.Controllers
     public class CustomerContactController : Controller
     {
         客戶聯絡人Repository repo = RepositoryHelper.Get客戶聯絡人Repository();
-        private 客戶資料Entities db = new 客戶資料Entities();
+        客戶資料Repository repo客戶資料;
+        //private 客戶資料Entities db = new 客戶資料Entities();
+
+        public CustomerContactController()
+        {
+            repo客戶資料 = RepositoryHelper.Get客戶資料Repository(repo.UnitOfWork);
+
+        }
 
         // GET: CustomerContact
         public ActionResult Index(string keyword)
         {
-            var query = repo.All();
+            var query = repo.Keyword(keyword);
 
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                query = query.Where(m => m.姓名.Contains(keyword) || m.職稱.Contains(keyword));
-
-            }
             return View(query.ToList());
         }
 
@@ -35,7 +37,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶聯絡人 客戶聯絡人 = repo.Find(id);
+            客戶聯絡人 客戶聯絡人 = repo.Find(id.Value);
             if (客戶聯絡人 == null)
             {
                 return HttpNotFound();
@@ -76,7 +78,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶聯絡人 客戶聯絡人 = repo.Find(id);
+            客戶聯絡人 客戶聯絡人 = repo.Find(id.Value);
             if (客戶聯絡人 == null)
             {
                 return HttpNotFound();
@@ -109,7 +111,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶聯絡人 客戶聯絡人 = repo.Find(id);
+            客戶聯絡人 客戶聯絡人 = repo.Find(id.Value);
             if (客戶聯絡人 == null)
             {
                 return HttpNotFound();
@@ -132,7 +134,7 @@ namespace MVC5_HW1.Controllers
     
         private void InitDropDownList()
         {
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
+            ViewBag.客戶Id = new SelectList(repo客戶資料.All(), "Id", "客戶名稱");
         }
     }
 }

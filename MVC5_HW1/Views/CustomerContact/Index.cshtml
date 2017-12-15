@@ -11,15 +11,23 @@
     @Html.ActionLink("Create New", "Create") |
     @Html.ActionLink("Back to Full List", "Index", "CustomerContact")
 </p>
-<p>
-    @* 搜尋關鍵字的搜尋框與按鈕 *@
-    @using (Html.BeginForm())
-    {
-        @Html.Label("keyword", "關鍵字： ")
-        @Html.TextBox("keyword", null, new { @placeholder = "姓名、職稱" })
-        <input type="submit" value="搜尋">
-    }
-</p>
+
+@using (Html.BeginForm("Index", "CustomerContact", FormMethod.Post, new { id = "queryForm", @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <div class="col-sm-10 form-inline">
+            <div class="form-group col-sm-5">
+                <label class="col-sm-3 control-label">@Html.Label("keyword", "關鍵字:")</label>
+                <div class="col-sm-9">
+                    @Html.TextBox("keyword", null, new { @class = "form-control", @placeholder = "姓名、職稱" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button id="btnQuery" type="submit" class="btn btn-primary">搜尋</button>
+        </div>
+    </div>
+}
 <table class="table">
     <tr>
         <th>
@@ -72,3 +80,22 @@
 }
 
 </table>
+
+@section scripts{
+    <script>
+        $(function () {
+            var reloadTable = function () {
+                var api = tblResult.api()
+
+                api.ajax.url('@Url.Action("Index")?' + $('#queryForm').serialize());
+                api.ajax.reload();
+            }
+
+            $("#btnQuery").click(function () {
+                $("#queryForm").submit();
+
+            });
+            $("#type").change(reloadTable);
+        });
+    </script>
+}

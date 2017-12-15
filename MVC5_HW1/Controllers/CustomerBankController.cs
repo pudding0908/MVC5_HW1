@@ -12,8 +12,14 @@ namespace MVC5_HW1.Controllers
 {
     public class CustomerBankController : Controller
     {
-        客戶資料Entities db = new 客戶資料Entities();
+        //客戶資料Entities db = new 客戶資料Entities();
         客戶銀行資訊Repository repo = RepositoryHelper.Get客戶銀行資訊Repository();
+        客戶資料Repository repo客戶資料;
+
+        public CustomerBankController()
+        {
+            repo客戶資料 = RepositoryHelper.Get客戶資料Repository(repo.UnitOfWork);
+        }
 
         // GET: CustomerBank
         public ActionResult Index(string keyword)
@@ -35,7 +41,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶銀行資訊 客戶銀行資訊 = repo.Find(id);
+            客戶銀行資訊 客戶銀行資訊 = repo.Find(id.Value);
             if (客戶銀行資訊 == null)
             {
                 return HttpNotFound();
@@ -75,7 +81,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶銀行資訊 客戶銀行資訊 = repo.Find(id);
+            客戶銀行資訊 客戶銀行資訊 = repo.Find(id.Value);
             if (客戶銀行資訊 == null)
             {
                 return HttpNotFound();
@@ -108,7 +114,7 @@ namespace MVC5_HW1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            客戶銀行資訊 客戶銀行資訊 = repo.Find(id);
+            客戶銀行資訊 客戶銀行資訊 = repo.Find(id.Value);
             if (客戶銀行資訊 == null)
             {
                 return HttpNotFound();
@@ -131,7 +137,7 @@ namespace MVC5_HW1.Controllers
 
         private void InitDropDownList()
         {
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
+            ViewBag.客戶Id = new SelectList(repo客戶資料.All(), "Id", "客戶名稱");
         }
     }
 }
