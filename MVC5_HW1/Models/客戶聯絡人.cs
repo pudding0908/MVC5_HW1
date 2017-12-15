@@ -11,37 +11,18 @@ namespace MVC5_HW1.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class 客戶聯絡人
     {
         public int Id { get; set; }
-
         public int 客戶Id { get; set; }
-
-        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
-        [Required(ErrorMessage = "請輸入職稱")]
         public string 職稱 { get; set; }
-
-        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
-        [Required(ErrorMessage = "請輸入姓名")]
         public string 姓名 { get; set; }
-
-        [EmailAddress]
-        [Required(ErrorMessage = "請輸入Email")]
         public string Email { get; set; }
-
-        [RegularExpression(@"09[0-9]{2}-[0-9]{6}", ErrorMessage = "請輸入正確的手機號碼! 09XX-XXXXXX")]
-        [Required(ErrorMessage = "請輸入手機號碼")]
         public string 手機 { get; set; }
-
-        [RegularExpression(@"^\d{6,8}$", ErrorMessage = "請輸入正確的電話號碼")]
-        [Required(ErrorMessage = "請輸入電話號碼")]
         public string 電話 { get; set; }
-
-        //是否刪除
         public Nullable<bool> IsDelete { get; set; }
-
+    
         public virtual 客戶資料 客戶資料 { get; set; }
     }
 }

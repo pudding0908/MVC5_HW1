@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="客戶資料Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="客戶資料">
           <Key>
             <PropertyRef Name="Id" />
@@ -54,12 +44,15 @@
           <Property Name="電話" Type="nvarchar" MaxLength="50" />
           <Property Name="IsDelete" Type="bit" />
         </EntityType>
-        <EntityType Name="客戶聯絡人與銀行帳戶數量">
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'D:\ASP.NET MVC5開發實戰課程\106.12.03-第一周作業\MVC5_HW1\MVC5_HW1\APP_DATA\客戶資料.MDF.dbo.VW客戶關聯資料統計表' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="VW客戶關聯資料統計表">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="客戶名稱" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="客戶名稱" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="客戶名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="聯絡人數量" Type="int" />
           <Property Name="銀行帳戶數量" Type="int" />
         </EntityType>
@@ -88,11 +81,17 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="客戶資料ModelStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="客戶資料" EntityType="Self.客戶資料" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="客戶銀行資訊" EntityType="Self.客戶銀行資訊" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="客戶聯絡人" EntityType="Self.客戶聯絡人" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="客戶聯絡人與銀行帳戶數量" EntityType="Self.客戶聯絡人與銀行帳戶數量" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VW客戶關聯資料統計表" EntityType="Self.VW客戶關聯資料統計表" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW客戶關聯資料統計表].[Id] AS [Id], 
+    [VW客戶關聯資料統計表].[客戶名稱] AS [客戶名稱], 
+    [VW客戶關聯資料統計表].[聯絡人數量] AS [聯絡人數量], 
+    [VW客戶關聯資料統計表].[銀行帳戶數量] AS [銀行帳戶數量]
+    FROM [dbo].[VW客戶關聯資料統計表] AS [VW客戶關聯資料統計表]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_客戶銀行資訊_客戶資料" Association="Self.FK_客戶銀行資訊_客戶資料">
             <End Role="客戶資料" EntitySet="客戶資料" />
             <End Role="客戶銀行資訊" EntitySet="客戶銀行資訊" />
@@ -106,16 +105,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="客戶資料Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="客戶資料">
           <Key>
             <PropertyRef Name="Id" />
@@ -184,7 +173,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="客戶資料Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="客戶資料" EntityType="Self.客戶資料" />
           <EntitySet Name="客戶銀行資訊" EntityType="Self.客戶銀行資訊" />
           <EntitySet Name="客戶聯絡人" EntityType="Self.客戶聯絡人" />
@@ -196,14 +184,15 @@
             <End Role="客戶資料" EntitySet="客戶資料" />
             <End Role="客戶聯絡人" EntitySet="客戶聯絡人" />
           </AssociationSet>
-          <EntitySet Name="客戶聯絡人與銀行帳戶數量" EntityType="客戶資料Model.客戶聯絡人與銀行帳戶數量" />
+          <EntitySet Name="VW客戶關聯資料統計表" EntityType="客戶資料Model.VW客戶關聯資料統計表" />
         </EntityContainer>
-        <EntityType Name="客戶聯絡人與銀行帳戶數量">
+        <EntityType Name="VW客戶關聯資料統計表">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="客戶名稱" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="客戶名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="客戶名稱" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="聯絡人數量" Type="Int32" />
           <Property Name="銀行帳戶數量" Type="Int32" />
         </EntityType>
@@ -213,17 +202,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="客戶資料ModelStoreContainer" CdmEntityContainer="客戶資料Entities">
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="客戶資料Model.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="客戶資料">
             <EntityTypeMapping TypeName="客戶資料Model.客戶資料">
               <MappingFragment StoreEntitySet="客戶資料">
@@ -266,9 +244,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="客戶聯絡人與銀行帳戶數量">
-            <EntityTypeMapping TypeName="客戶資料Model.客戶聯絡人與銀行帳戶數量">
-              <MappingFragment StoreEntitySet="客戶聯絡人與銀行帳戶數量">
+          <EntitySetMapping Name="VW客戶關聯資料統計表">
+            <EntityTypeMapping TypeName="客戶資料Model.VW客戶關聯資料統計表">
+              <MappingFragment StoreEntitySet="VW客戶關聯資料統計表">
                 <ScalarProperty Name="銀行帳戶數量" ColumnName="銀行帳戶數量" />
                 <ScalarProperty Name="聯絡人數量" ColumnName="聯絡人數量" />
                 <ScalarProperty Name="客戶名稱" ColumnName="客戶名稱" />

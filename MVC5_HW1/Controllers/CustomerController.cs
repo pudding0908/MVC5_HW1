@@ -12,11 +12,16 @@ namespace MVC5_HW1.Controllers
 {
     public class CustomerController : Controller
     {
-        //private 客戶資料Entities db = new 客戶資料Entities();
+        private 客戶資料Entities db = new 客戶資料Entities();
         客戶資料Repository repo = RepositoryHelper.Get客戶資料Repository();
 
+        public ActionResult 客戶關聯資料表()
+        {
+            return View(db.VW客戶關聯資料統計表.ToList());
+        }
+
         // GET: Customer
-        public ActionResult Index(string keyword = "")
+        public ActionResult Index(string keyword)
         {
             //關鍵字搜尋條件
             var query = repo.All();
@@ -97,8 +102,8 @@ namespace MVC5_HW1.Controllers
             return View(客戶資料);
         }
 
-        // GET: Customer/Delete/5
-        public ActionResult Delete(int? id)
+    // GET: Customer/Delete/5
+    public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -120,7 +125,7 @@ namespace MVC5_HW1.Controllers
             客戶資料 客戶資料 =repo.Find(id);
 
             客戶資料.IsDelete = true;
-            repo.Delete(客戶資料);
+            //repo.Delete(客戶資料);
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }

@@ -172,7 +172,6 @@
     <Compile Include="Controllers\CustomerContactController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MainCustomerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,14 +212,14 @@
     <Compile Include="Models\RepositoryHelper.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>CustomerData.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\sysdiagrams.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagramsRepository.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VW客戶關聯資料統計表.cs">
+      <DependentUpon>CustomerData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\客戶聯絡人.cs">
       <DependentUpon>CustomerData.tt</DependentUpon>
@@ -229,15 +228,6 @@
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\客戶聯絡人Repository.cs">
-      <DependentUpon>IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\客戶聯絡人與銀行帳戶數量.cs">
-      <DependentUpon>CustomerData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\客戶聯絡人與銀行帳戶數量.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\客戶聯絡人與銀行帳戶數量Repository.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\客戶資料.cs">
@@ -344,7 +334,7 @@
     <Content Include="Views\CustomerBank\Details.cshtml" />
     <Content Include="Views\CustomerBank\Edit.cshtml" />
     <Content Include="Views\CustomerBank\Index.cshtml" />
-    <Content Include="Views\MainCustomer\Index.cshtml" />
+    <Content Include="Views\Customer\客戶關聯資料表.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -123,7 +123,9 @@ namespace MVC5_HW1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             客戶聯絡人 客戶聯絡人 = repo.Find(id);
-            repo.Delete(客戶聯絡人);
+
+            客戶聯絡人.IsDelete = true;
+            //repo.Delete(客戶聯絡人);
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }

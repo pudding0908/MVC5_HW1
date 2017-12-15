@@ -14,7 +14,7 @@
     @* 搜尋關鍵字的搜尋框與按鈕 *@
     @using (Html.BeginForm())
     {
-        @Html.Label("keyword", "關鍵字： ")
+        @Html.Label("keyword", "姓名： ")
         @Html.TextBox("keyword")
         <input type="submit" value="搜尋">
     }
@@ -65,7 +65,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you SURE?');" })
         </td>
     </tr>
 }

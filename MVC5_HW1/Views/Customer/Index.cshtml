@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "客戶資料";
+    var 客戶分類清單 = ViewBag.客戶分類清單 as List<SelectListItem>;
 }
 
 <h2>客戶資料</h2>
@@ -14,7 +15,7 @@
     @* 搜尋關鍵字的搜尋框與按鈕 *@
     @using (Html.BeginForm())
     {
-        @Html.Label("keyword", "關鍵字： ")
+        @Html.Label("keyword", "客戶名稱： ")
         @Html.TextBox("keyword")
         <input type="submit" value="搜尋">
     }
