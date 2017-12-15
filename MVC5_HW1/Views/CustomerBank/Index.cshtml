@@ -8,14 +8,15 @@
 
 <p>
     @* 新增一筆資料 *@
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create") |
+    @Html.ActionLink("Back to Full List", "Index", "CustomerBank")
 </p>
 <p>
     @* 搜尋關鍵字的搜尋框與按鈕 *@
     @using (Html.BeginForm())
     {
-        @Html.Label("keyword", "帳戶名稱： ")
-        @Html.TextBox("keyword")
+        @Html.Label("keyword", "關鍵字： ")
+        @Html.TextBox("keyword", null, new { @placeholder = "帳戶名稱" })
         <input type="submit" value="搜尋">
     }
 </p>

@@ -2,21 +2,21 @@
 
 @{
     ViewBag.Title = "客戶資料";
-    var 客戶分類清單 = ViewBag.客戶分類清單 as List<SelectListItem>;
 }
 
 <h2>客戶資料</h2>
 
 <p>
     @* 新增一筆資料 *@
-    @Html.ActionLink("Create New","Create")
+    @Html.ActionLink("Create New","Create") |
+    @Html.ActionLink("Back to Full List", "Index", "Customer")
 </p>
 <p>
     @* 搜尋關鍵字的搜尋框與按鈕 *@
     @using (Html.BeginForm())
     {
-        @Html.Label("keyword", "客戶名稱： ")
-        @Html.TextBox("keyword")
+        @Html.Label("keyword", "關鍵字： ")
+        @Html.TextBox("keyword", null, new { @placeholder = "客戶名稱" })
         <input type="submit" value="搜尋">
     }
 </p>

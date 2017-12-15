@@ -51,6 +51,7 @@ namespace MVC5_HW1.Controllers
         // GET: Customer/Create
         public ActionResult Create()
         {
+            VipViewBag();
             return View();
         }
 
@@ -67,6 +68,9 @@ namespace MVC5_HW1.Controllers
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
+            VipViewBag();
+            //客戶資料.客戶分類清單= Get客戶分類清單();
+            //ViewData.Model = 客戶資料;
 
             return View(客戶資料);
         }
@@ -83,6 +87,7 @@ namespace MVC5_HW1.Controllers
             {
                 return HttpNotFound();
             }
+            VipViewBag();
             return View(客戶資料);
         }
 
@@ -127,7 +132,23 @@ namespace MVC5_HW1.Controllers
             客戶資料.IsDelete = true;
             //repo.Delete(客戶資料);
             repo.UnitOfWork.Commit();
+
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Get客戶分類清單
+        /// </summary>
+        /// <returns></returns>
+        public void VipViewBag()
+        {
+            ViewBag.CustomerType =  new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "一般會員", Value = "S" },
+                new SelectListItem { Text = "黃金會員", Value = "G" },
+                new SelectListItem { Text = "白金會員", Value = "P" },
+                new SelectListItem { Text = "鑽石會員", Value = "D" },
+            };
         }
     }
 }

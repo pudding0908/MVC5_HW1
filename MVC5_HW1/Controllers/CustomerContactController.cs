@@ -22,7 +22,7 @@ namespace MVC5_HW1.Controllers
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                query = query.Where(m => m.姓名.Contains(keyword));
+                query = query.Where(m => m.姓名.Contains(keyword) || m.職稱.Contains(keyword));
 
             }
             return View(query.ToList());

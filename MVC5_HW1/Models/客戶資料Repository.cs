@@ -15,8 +15,7 @@ namespace MVC5_HW1.Models
         {
             return All().FirstOrDefault(a => a.Id == id);
         }
-
-    }
+}
 
 	public  interface I客戶資料Repository : IRepository<客戶資料>
 	{
